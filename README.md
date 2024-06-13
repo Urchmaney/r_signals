@@ -1,8 +1,7 @@
 # RSignals
 
-TODO: Delete this and the text below, and describe your gem
+RSignals is a reactive signal gem for ruby. Create reactivity with your variables.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/r_signals`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 ## Installation
 
@@ -10,15 +9,41 @@ TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_O
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+    $ bundle add r_signals
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+    $ gem install r_signals
 
 ## Usage
 
-TODO: Write usage instructions here
+    ```
+        count = r_signal(0)
+        
+        puts count
+
+        count(2)
+
+        puts counts
+
+        puts counts.previous
+
+    ```
+
+### Connecting Signals
+    ```
+        count = r_signal(0)
+
+        steps = r_signal(-> {
+            count + 2
+        })
+
+        puts steps
+
+        count(3)
+
+        puts steps
+    ```
 
 ## Development
 
