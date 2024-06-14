@@ -10,13 +10,11 @@ RSpec.describe RSignals do
   end
 
   it "should create singleton function based on parameter" do
-    Klass = Class.new do
+    klass = Class.new do
       extend RSignals
       create_r_signal("sigma", 9)
     end
 
-    expect(Klass).to respond_to(:sigma)
+    expect(klass).to respond_to(:sigma)
   end
-
-  
 end
