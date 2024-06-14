@@ -15,8 +15,14 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
+### First extend the module
     ```
-        count = r_signal(0)
+        extend RSignals
+    ```
+### Then we use it 
+
+    ```
+        create_r_signal("count", 0)
         
         puts count
 
@@ -30,9 +36,9 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ### Connecting Signals
     ```
-        count = r_signal(0)
+        create_r_signal("count", 0)
 
-        steps = r_signal(-> {
+        create_r_signal("steps", -> {
             count + 2
         })
 
