@@ -28,9 +28,9 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
         count(2)
 
-        puts counts
+        puts count
 
-        puts counts.previous
+        puts count_previous
 
     ```
 
