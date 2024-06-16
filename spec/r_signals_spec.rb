@@ -34,4 +34,11 @@ RSpec.describe RSignals do
   it "should raise error for type mismatch" do
     expect { Klass.sigma "cool" }.to raise_error RSignals::TypeMismatchError
   end
+
+  it "should store lambda function" do
+    Klass.create_r_signal "moon", lambda {
+      1 + 2
+    }
+    expect(Klass.moon).to eql 3
+  end
 end
