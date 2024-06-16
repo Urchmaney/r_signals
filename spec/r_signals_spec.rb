@@ -36,7 +36,7 @@ RSpec.describe RSignals do
   end
 
   it "should store lambda function" do
-    Klass.create_r_signal "moon", -> {
+    Klass.create_r_signal "moon", lambda {
       1 + 2
     }
     expect(Klass.moon).to eql 3
