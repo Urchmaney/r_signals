@@ -3,12 +3,19 @@
 module RSignals
   # Class definition to create node
   class RSNode
-    attr_reader :value, :previous, :value_type
+    attr_reader :previous, :value_type
 
     def initialize(val)
       @value = val
       @previous = nil
       @value_type = val.class
+      @proc = val
+    end
+
+    def value
+      return @value.call if value_type == Proc
+
+      @value
     end
 
     def value=(new_val)
