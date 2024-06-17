@@ -12,16 +12,45 @@ module RSignals
     end
   end
 
-  def create_r_signal(name, val)
-    node = RSNode.new(val)
-    define_singleton_method(name) do |*args|
-      return node.value if args.length <= 0
+  REGISTER = {}
+  class ParameterHelpers
+    class << self
+      attr_accessor :calling_node
+    end
+    
+  end
 
-      node.value = args[0]
+  def self.included(base)
+    base.extend ClassMethods
+  end
+
+
+  module ClassMethods
+    def create_r_signal(name, val = nil, &block)
+      node = RSNode.new val, &block
+      register_signal(name, node)
+      define_singleton_method(name) do |*args|
+        return node.value if args.length <= 0
+  
+        node.value = args[0]
+      end
+  
+      define_singleton_method("#{name}_previous") do
+        node.previous
+      end
+    end
+  
+    def register_signal(signal_name, node)
+      RSignals::REGISTER["#{full_signal_name signal_name}"] = node
+      RSignals::ParameterHelpers.define_singleton_method(signal_name) do
+        node.add_dependent_node(RSignals::ParameterHelpers.calling_node)
+        
+        node.value
+      end
     end
 
-    define_singleton_method("#{name}_previous") do
-      node.previous
+    def full_signal_name(signal_name)
+      "#{name}.#{signal_name}"
     end
   end
 end
