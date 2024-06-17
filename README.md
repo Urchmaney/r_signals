@@ -38,9 +38,9 @@ If bundler is not being used to manage dependencies, install the gem by executin
     ```
         create_r_signal("count", 0)
 
-        create_r_signal("steps", -> {
-            count + 2
-        })
+        create_r_signal("steps") do |r|
+            r.count + 2
+        end
 
         puts steps
 
