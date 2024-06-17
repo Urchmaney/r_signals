@@ -1,11 +1,11 @@
 # frozen_string_literal: true
-require 'set'
+
+require "set"
 
 module RSignals
   # Class definition to create node
   class RSNode
-
-    attr_reader :previous, :value_type, :value, :dependent_nodes
+    attr_reader :previous, :value_type, :dependent_nodes
 
     def initialize(val, &block)
       @value = val
@@ -18,7 +18,7 @@ module RSignals
     end
 
     def value
-      return @value if @block.nil? || is_clean?
+      return @value if @block.nil? || clean?
 
       run_block
     end
@@ -32,14 +32,14 @@ module RSignals
 
     def r
       RSignals::ParameterHelpers.calling_node = self
-      return RSignals::ParameterHelpers
+      RSignals::ParameterHelpers
     end
 
     def add_dependent_node(node)
       @dependent_nodes.add(node)
     end
 
-    def is_clean?
+    def clean?
       @clean
     end
 
