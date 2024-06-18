@@ -33,7 +33,7 @@ module RSignals
   # Module class methods
   module ClassMethods
     def create_r_signal(name, val = nil, &block)
-      node = RSNode.new val, &block
+      node = RSNode.new val, self, &block
       register_signal(name, node)
       define_singleton_method(name) do |*args|
         return node.value if args.length <= 0

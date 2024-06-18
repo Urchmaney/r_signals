@@ -5,6 +5,11 @@ RSpec.describe RSignals do
     stub_const "Klass", Class.new
     Klass.class_eval { include RSignals }
     Klass.class_eval { create_r_signal "sigma", 9 }
+    Klass.instance_eval do
+      def nine
+        9
+      end
+    end
   end
 
   it "should create singleton function based on parameter" do
@@ -64,5 +69,12 @@ RSpec.describe RSignals do
 
     Klass.sigma(99)
     expect(Klass.loop_previous).to eq nil
+  end
+
+  it "should access class methods" do
+    Klass.create_r_signal "loop" do |r|
+      r.sigma + nine
+    end
+    expect(Klass.loop).to eq 18
   end
 end
