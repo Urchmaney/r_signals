@@ -5,15 +5,16 @@ require "set"
 module RSignals
   # Class definition to create node
   class RSNode
-    attr_reader :previous, :value_type, :dependent_nodes
+    attr_reader :previous, :value_type, :dependent_nodes, :binding
 
-    def initialize(val, &block)
+    def initialize(val, binding, &block)
       @value = val
       @previous = nil
       @value_type = val.class
       @block = block
       @dependent_nodes = Set.new
       @clean = !val.nil?
+      @binding = binding
       # run_block if block
     end
 
@@ -53,7 +54,7 @@ module RSignals
     end
 
     def run_block
-      result = @block.call r
+      result = binding.instance_exec r, &(@block)
       store_new_value result
     end
 
