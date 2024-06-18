@@ -54,7 +54,7 @@ module RSignals
     end
 
     def run_block
-      result = binding.instance_exec r, &(@block)
+      result = binding.instance_exec r, &@block
       store_new_value result
     end
 
