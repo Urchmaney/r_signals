@@ -3,7 +3,7 @@
 RSpec.describe RSignals do
   before do
     stub_const "Klass", Class.new
-    Klass.class_eval { include RSignals }
+    Klass.class_eval { include RSignals::RSignalable }
     Klass.class_eval { create_r_signal "sigma", 9 }
     Klass.instance_eval do
       def nine

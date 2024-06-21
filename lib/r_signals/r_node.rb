@@ -4,7 +4,7 @@ require "set"
 
 module RSignals
   # Class definition to create node
-  class RSNode
+  class RNode
     attr_reader :previous, :value_type, :dependent_nodes, :binding
 
     def initialize(val, binding, &block)
