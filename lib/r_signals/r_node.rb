@@ -15,7 +15,6 @@ module RSignals
       @dependent_nodes = Set.new
       @clean = !val.nil?
       @binding = binding
-      # run_block if block
     end
 
     def value
