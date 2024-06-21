@@ -17,7 +17,7 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ### First extend the module
     ```
-        include RSignals
+        include RSignals::RSignalable
     ```
 ### Then we use it 
 
