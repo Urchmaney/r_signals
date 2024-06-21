@@ -25,13 +25,20 @@ module RSignals
     module ClassMethods
       def create_r_signal(name, val = nil, &block)
         node = RNode.new val, self, &block
-        register_signal(name, node)
+        register_signal name, node
+        create_r_node_method name, node
+        create_r_node_previous_method name, node
+      end
+
+      def create_r_node_method(name, node)
         define_singleton_method(name) do |*args|
           return node.value if args.length <= 0
 
           node.value = args[0]
         end
+      end
 
+      def create_r_node_previous_method(name, node)
         define_singleton_method("#{name}_previous") do
           node.previous
         end
