@@ -7,47 +7,52 @@ RSignals is a reactive signal gem for ruby. Create reactivity with your variable
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add r_signals
+```bash
+    bundle add r_signals
+```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
-
-    $ gem install r_signals
+```bash
+    gem install r_signals
+```
 
 ## Usage
 
 ### First extend the module
-    ```
-        include RSignals::RSignalable
-    ```
+
+```bash
+    include RSignals::RSignalable
+```
+
 ### Then we use it 
 
-    ```
-        create_r_signal("count", 0)
-        
-        puts count
+```ruby
+    create_r_signal("count", 0)
+    
+    puts count
 
-        count(2)
+    count(2)
 
-        puts count
+    puts count
 
-        puts count_previous
+    puts count_previous
 
-    ```
+```
 
 ### Connecting Signals
-    ```
-        create_r_signal("count", 0)
+```ruby
+    create_r_signal("count", 0)
 
-        create_r_signal("steps") do |r|
-            r.count + 2
-        end
+    create_r_signal("steps") do |r|
+        r.count + 2
+    end
 
-        puts steps
+    puts steps
 
-        count(3)
+    count(3)
 
-        puts steps
-    ```
+    puts steps
+```
 
 ## Development
 
