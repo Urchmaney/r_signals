@@ -2,12 +2,12 @@
 
 RSpec.describe RSignals::EventDispatchers do
   describe RSignals::EventDispatchers::FlagDispatcher do
-  before(:each) { @count = 0 }
-  let(:handler) do
-    ->(_) { @count += 1 }
-  end
-  let(:flag_dispatcher) { RSignals::EventDispatchers::FlagDispatcher.new }
-    
+    before(:each) { @count = 0 }
+    let(:handler) do
+      ->(_) { @count += 1 }
+    end
+    let(:flag_dispatcher) { RSignals::EventDispatchers::FlagDispatcher.new }
+
     it "should fire handler when subscribed" do
       flag_dispatcher.subscribe(handler)
       flag_dispatcher.raise
