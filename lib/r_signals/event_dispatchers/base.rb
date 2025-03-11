@@ -4,8 +4,11 @@ module RSignals
   module EventDispatchers
     # The base abstract class for all event dispatching class
     class Base
+      attr_reader :subscribable
+
       def initialize
         @subscribers = Set.new
+        @subscribable = Subscribable.new self
       end
 
       def subscribe(handler)
@@ -21,8 +24,8 @@ module RSignals
         @subscribers.clear
       end
 
-      def notify_subscribers(value = nil)
-        @subscribers.to_a.map { |handler| handler.call(value) }
+      def notify_subscribers
+        @subscribers.to_a.map(&:call)
       end
     end
 
