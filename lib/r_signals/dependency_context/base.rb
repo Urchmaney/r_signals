@@ -15,7 +15,7 @@ module RSignals
         attr_reader :collection_set, :collection_stack
       end
 
-      attr_reader :mark_dirty
+      attr_reader :mark_dirty, :dependencies
 
       def initialize(owner = nil)
         @owner = owner
@@ -52,7 +52,7 @@ module RSignals
         signal = Base.collection_stack[-1]
         return unless signal
 
-        signal.dependencies.add(@event.Subscribable)
+        signal.dependencies.add(@event.subscribable)
         @event.subscribe(signal.mark_dirty)
       end
 

@@ -4,7 +4,7 @@ RSpec.describe RSignals::EventDispatchers do
   describe RSignals::EventDispatchers::FlagDispatcher do
     before(:each) { @count = 0 }
     let(:handler) do
-      ->(_) { @count += 1 }
+      -> { @count += 1 }
     end
     let(:flag_dispatcher) { RSignals::EventDispatchers::FlagDispatcher.new }
 

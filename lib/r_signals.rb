@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "r_signals/version"
+require_relative "r_signals/util"
 require_relative "r_signals/event_dispatchers"
 require_relative "r_signals/dependency_context"
 require_relative "r_signals/r_node"
