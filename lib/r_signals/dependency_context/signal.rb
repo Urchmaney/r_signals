@@ -16,20 +16,30 @@ module RSignals
         @last = @initial unless RSignals.reactive? @initial
       end
 
-      def value # rubocop:disable Metrics/MethodLength
+      def signal(val = nil)
+        return value if val.nil?
+
+        self.value = val
+      end
+
+      private
+
+      def value
         if (RSignals.reactive? @current) && @event.raised?
           clear_dependencies
           start_collecting
-          begin
-            @last = @owner.instance_exec(&@current)
-          rescue StandardError
-            p $ERROR_INFO
-          end
+          execute_reactive_value
           finish_collecting
         end
         @event.reset
         collect
         @last
+      end
+
+      def execute_reactive_value
+        @last = @owner.instance_exec(&@current)
+      rescue StandardError
+        p $ERROR_INFO
       end
 
       def value=(val)
@@ -40,12 +50,6 @@ module RSignals
         @last = val unless RSignals.reactive? val
 
         @mark_dirty.call
-      end
-
-      def signal(val = nil)
-        return value if val.nil?
-
-        self.value = val
       end
     end
   end
