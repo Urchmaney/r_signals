@@ -21,9 +21,9 @@ module RSignals
           clear_dependencies
           start_collecting
           begin
-            @last = @current.call
-          rescue e
-            p "Error "
+            @last = @owner.instance_exec(&@current)
+          rescue StandardError
+            p $ERROR_INFO
           end
           finish_collecting
         end
