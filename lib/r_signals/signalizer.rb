@@ -5,6 +5,7 @@ module RSignals
   module Signalizer
     def self.included(base)
       base.extend ClassMethods
+      base.extend self
     end
 
     def signal_instance(instance, key, value)
@@ -19,9 +20,36 @@ module RSignals
     # module containing class methods that will be added to class that extends Signaler
     module ClassMethods
       def signalize(*args)
-        throw "Wrong parameter strructure. follow  key: value form." unless args.length == 1 && args[0].is_a?(Hash)
-        args[0].each do |key, val|
+        to, hash = verify_args(*args)
+        if to == :class
+          define_signal_singleton_methods hash
+        else
+          define_signal_methods hash
+        end
+      end
+
+      private
+
+      def verify_args(*args)
+        unless (args.length == 1 && args[0].is_a?(Hash)) || (
+          args.length == 2 && args[0].is_a?(Symbol) && args[1].is_a?(Hash))
+          throw "Wrong parameter structure."
+        end
+        args.length == 2 ? args : [:instance, *args]
+      end
+
+      def define_signal_methods(hash)
+        hash.each do |key, val|
           define_method key do |value = nil|
+            node = signal_instance(self, key, val)
+            node.signal value
+          end
+        end
+      end
+
+      def define_signal_singleton_methods(hash)
+        hash.each do |key, val|
+          define_singleton_method key do |value = nil|
             node = signal_instance(self, key, val)
             node.signal value
           end
