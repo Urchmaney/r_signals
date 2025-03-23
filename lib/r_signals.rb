@@ -4,8 +4,6 @@ require_relative "r_signals/version"
 require_relative "r_signals/util"
 require_relative "r_signals/event_dispatchers"
 require_relative "r_signals/dependency_context"
-require_relative "r_signals/r_node"
-require_relative "r_signals/r_signalable"
 require_relative "r_signals/signalizer"
 
 # Parent Container Module
