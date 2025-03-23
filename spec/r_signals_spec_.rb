@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# This file is currently not used in the repository. Just waiting to be deleted
+
 RSpec.describe RSignals do
   before do
     stub_const "Klass", Class.new

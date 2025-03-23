@@ -11,54 +11,63 @@ Install the gem and add to the application's Gemfile by executing:
     bundle add r_signals
 ```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
-```bash
-    gem install r_signals
-```
-
 ## Usage
 
-### First extend the module
+### First include the module
 
-```bash
-    include RSignals::RSignalable
+```ruby
+    class Klass
+        include RSignals::Signalizer
+
+        signalize count: 0, shop: -> { count + 2 }
+    end
 ```
 
 ### Then we use it 
 
 ```ruby
-    create_r_signal("count", 0)
+    instance = Klass.new
     
-    puts count
+    puts instance.count     # 0
 
-    count(2)
+    instance.count 2    
 
-    puts count
+    puts instance.count     # 2
 
-    puts count_previous
+    puts instance.shop     # 4
 
 ```
 
-### Connecting Signals
-```ruby
-    create_r_signal("count", 0)
+This instance methods are reactive and cached. from the above example, `shop` depends on `count` but will only call `count` if their is a change to `count`.
 
-    create_r_signal("steps") do |r|
-        r.count + 2
+
+### Class based
+```ruby
+    class Klass
+        include RSignals::Signalizer
+
+        signalize :class, count: 0, shop: -> { count + 2 }
     end
 
-    puts steps
 
-    count(3)
+    puts Klass.count     # 0
 
-    puts steps
+    Klass.count 2    
+
+    puts Klass.count     # 2
+
+    puts Klass.shop     # 4
 ```
 
 ## Development
 
+N:B Files with name ending  with `_` should be ignored. they are currently not part of the repository. They are waiting to be deleted.
+
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+
 
 ## Contributing
 
