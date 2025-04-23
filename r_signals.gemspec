@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Unegbu Kingsley"]
   spec.email = ["kingsobino@gmail.com"]
 
-  spec.summary = "RSignals is a reactive signal gem for ruby. Create reactivity with your variables."
+  spec.summary = "A reactive signal gem for ruby. Create reactivity with your variables."
   spec.description = "RSignals is a reactive signal gem for ruby. Create reactivity with your variables."
   spec.homepage = "https://github.com/Urchmaney/r_signals"
   spec.license = "MIT"
@@ -27,8 +27,7 @@ Gem::Specification.new do |spec|
         f.start_with?(*%w[bin/ test/ spec/ features/ .git .github appveyor Gemfile])
     end
   end
-  spec.bindir = "exe"
-  spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
